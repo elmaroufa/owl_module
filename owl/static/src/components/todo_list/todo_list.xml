@@ -4,15 +4,15 @@
         <div class="todo-list-container">
           <div class="row mx-2 mt-3">
             <div class="col-lg-6">
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"  t-on-click="addTask">
               New
               </button>
             </div>
 
             <div class=" col-lg-6">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search ....." />
-                <button class="btn btn-outline-primary">Search</button>
+                <input type="text" class="form-control" placeholder="Search ....." t-ref="search-input" t-on-keyup="searchTask" />
+                <button class="btn btn-outline-primary" t-on-click="searchTask">Search</button>
               </div>
             </div>
 
@@ -33,21 +33,23 @@
                     <th scope="row"><span t-esc="task.id" /></th>
                     <td>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" t-att-id="flexCheckDefault" t-att-checked="task.completed" />
-                        <label class="form-check-label" t-att-for="task.id">
+                        <input class="form-check-input" type="checkbox" value="" t-att-id="flexCheckDefault" t-att-checked="task.completed"
+                        t-on-click="(e)=>this.toggleTask(e, task)" />
+                        <label class="form-check-label" t-att-for="task.id" t-attf-class="#{task.completed and 'text-decoration-line-through'}">
                           <span t-esc="task.name" />
                         </label>
                       </div>
                     </td>
                     <td>
-                        <input type="color" class="form-control form-control-color" id="exampleColorInput" t-att-value="task.color" title="Choose your color" />
+                        <input type="color" class="form-control form-control-color" id="exampleColorInput" t-att-value="task.color" 
+                        title="Choose your color" t-on-change="(e)=>this.updateColor(e, task)" />
                     </td>
                     <td>
                       <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" 
                       t-on-click="()=>this.editTask(task)">
                       Edit
                       </button>
-                      <button class="btn btn-danger">delete</button>
+                      <button class="btn btn-danger" t-on-click="()=>this.deleteTask(task)">delete</button>
                     </td>
                   </tr>
                 </tbody>

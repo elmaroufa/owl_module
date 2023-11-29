@@ -1,7 +1,7 @@
 /** @odoo-module  **/
 
 import { registry } from '@web/core/registry';
-const { Component, useState, onWillStart } = owl;
+const { Component, useState, onWillStart, useRef } = owl;
 import { useService } from "@web/core/utils/hooks";
 
 export class OwlTodoList extends Component{
@@ -15,6 +15,8 @@ export class OwlTodoList extends Component{
         })
         this.orm = useService("orm")
         this.model = "owl.todo.list";
+        this.searchInput = useRef("search-input")
+
         onWillStart( async ()=> {
             await this.getAllTasks()
         })
@@ -25,7 +27,9 @@ export class OwlTodoList extends Component{
     }
 
     addTask(){
-
+           this.resetForm();
+           this.state.activeId = false
+           this.isEdit = false
     }
 
     editTask(task){
@@ -37,6 +41,10 @@ export class OwlTodoList extends Component{
     async saveTask(){
 
        if(!this.state.isEdit){
+        if(this.state.name === '' )
+        {
+            alert("name no empty ")
+        }
         await this.orm.create(this.model, [this.state.task]);
        }else{
         await this.orm.write(this.model, [this.state.activeId], this.state.task);
@@ -45,6 +53,30 @@ export class OwlTodoList extends Component{
        await this.getAllTasks();
     }
 
+    resetForm(){
+        this.state.task = {name: "", color: "#FF0000", completed: false}
+    }
+    
+    async deleteTask(task){
+          await this.orm.unlink(this.model, [task.id])
+          await this.getAllTasks();
+    }
+
+    async searchTask(task){
+        const text = this.searchInput.el.value
+        this.state.taskList = await this.orm.searchRead(this.model,[['name','ilike', text]], ["name", "color", "completed"]) 
+  }
+
+  async toggleTask(e, task){
+     await  this.orm.write(this.model, [task.id], {completed: e.target.checked});
+     await this.getAllTasks();
+  }
+
+  async updateColor(e, task){
+    console.log(e.target.value)
+    await  this.orm.write(this.model, [task.id], {color: e.target.value});
+    await this.getAllTasks();
+ }
 }
 
 OwlTodoList.template = 'owl.TodoList'
