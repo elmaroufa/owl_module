@@ -15,13 +15,13 @@ class ResPartnerKanbanController extends KanbanController {
         this.orm =  useService("orm");
 
         onWillStart(async ()=> {
-            this.customerLocation = await this.orm.readGroup("res.partner",
+            this.customerLocations = await this.orm.readGroup("res.partner",
             [], ['state_id'], ['state_id']
             );
-            console.log(this.customerLocation);
+            console.log(this.customerLocations);
         })
     }
-
+    
     openSalesView(){
         console.log("open sale views");
         this.action.doAction({
@@ -31,7 +31,21 @@ class ResPartnerKanbanController extends KanbanController {
             views: [[false, "list"], [false, "form"]]
         })
     }
+
+    selectLocations(state){
+        const id = state[0];
+        const name = state[1];
+
+        this.env.searchModel.setDomainParts({
+            state: {
+                domain: [['state_id','=', id]],
+                facetLabel: name
+            }
+        })
+    }
 }
+
+ResPartnerKanbanController.template = "owl.ResPartnerKanbanView";
 
 export const resPartnerKanbanView = {
     ...kanbanView,
