@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl.ValidEmailField" t-inherit="web.EmailField" owl="1">
+        <xpath expr="." position="inside">
+            <span class="text-danger">Invalid Email!</span>
+        </xpath>
+    </t>
+</templates>
