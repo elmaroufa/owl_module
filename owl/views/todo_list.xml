@@ -40,10 +40,16 @@
             <!-- <field name="tag">owl.action_todo_list_js</field> -->
             <field name="tag">owl.action_owl_todo_list_js</field>
         </record>
+
+        <record id="action_owl_sales_dashboard_js" model="ir.actions.client">
+            <field name="name">Sales Dashboard</field>
+            <field name="tag">owl.sales_dashboard</field>
+        </record>
     </data>
     
     <menuitem name="OWL Tutorial" id="menu_owl_tutorial" sequence="10">
         <menuitem name="Todo List" id="menu_owl_todo_list" sequence="10" action="action_owl_todo_list"/>
         <menuitem name="Todo List OWL" id="menu_owl_todo_list_js" sequence="10" action="action_owl_todo_list_js"/>
+        <menuitem name="Custum Sales Dashboard" id="menu_owl_sales_list_js" sequence="10" action="action_owl_sales_dashboard_js"/>
     </menuitem>
 </odoo>
