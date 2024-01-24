@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <KpiCard  name="'Quotations'" user="state.quotations.userId" value="state.quotations.value" percentage="state.quotations.userId" />
-                        <KpiCard  name="'Orders'" user="state.quotations.userId" value="20" pourcentage="20"/>
-                        <KpiCard  name="'Revenues'" user="state.quotations.userId"  value="'30.50k'" pourcentage="-3"/>
-                        <KpiCard  name="'Average Order'"  user="state.quotations.userId" value="'2.5k'" pourcentage="-10"/>
+                        <KpiCard  name="'Quotations'"  value="state.quotations.value" percentage="state.quotations.percentage" />
+                        <KpiCard  name="'Orders'"  value="20" pourcentage="20"/>
+                        <KpiCard  name="'Revenues'"   value="'30.50k'" pourcentage="-3"/>
+                        <KpiCard  name="'Average Order'"   value="'2.5k'" pourcentage="-10"/>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 m-0 p-0">
